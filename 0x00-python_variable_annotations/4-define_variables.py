@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""[Definition and assignment of the following variables with the specified values]
+"""[Definition and assignment of the following variables with the values]
 """
 
 a: int = 1
