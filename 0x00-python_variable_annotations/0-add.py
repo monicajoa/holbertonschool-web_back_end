@@ -4,7 +4,7 @@
 
 
 def add(a: float, b: float) -> float:
-    """A type-annotated function add that takes a and b as arguments
+    """[Type-annotated function add that takes a and b as arguments]
 
     Args:
         a (float): [First float argument]
