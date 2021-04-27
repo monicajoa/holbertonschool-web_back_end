@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 """[The basics of async]
 """
 
@@ -6,7 +6,7 @@ import asyncio
 import random
 
 
-async def wait_random(max_delay=10):
+async def wait_random(max_delay: int = 10) -> float:
     """[Asynchronous coroutine that takes in an integer argument]
 
     Args:
