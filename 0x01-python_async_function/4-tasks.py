@@ -1,6 +1,5 @@
-#!/[usr/bin/env python3
-"""[Tasks file - Task_wait_random]
-"""
+#!/usr/bin/env python3
+"""Tasks file, task_wait_random"""
 
 from typing import List
 import asyncio
