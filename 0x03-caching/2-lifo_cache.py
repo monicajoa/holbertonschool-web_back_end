@@ -5,7 +5,7 @@
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     """[Class that inherits from BaseCaching
     and becomes a caching system]
 
@@ -21,7 +21,7 @@ class FIFOCache(BaseCaching):
     def put(self, key, item):
         """[Method that assign to the dictionary
         the item value for the key, discard the
-        first item put in cache (FIFO algorithm)]
+        last item put in cache (LIFO algorithm)]
 
         Args:
                 key: [Key]
@@ -30,9 +30,9 @@ class FIFOCache(BaseCaching):
         if key is not None and item is not None:
             self.cache_data[key] = item
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            first_key = list(self.cache_data)[0]
-            print('DISCARD:', list(self.cache_data)[0])
-            self.cache_data.pop(first_key, 0)
+            last_key = list(self.cache_data)[-2]
+            print('DISCARD:', last_key)
+            self.cache_data.pop(last_key)
 
     def get(self, key):
         """[Method that Get an item by key]
