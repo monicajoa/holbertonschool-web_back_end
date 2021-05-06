@@ -54,8 +54,12 @@ class Server:
         """
         assert type(index) == int
         assert index >= 0 and index < len(self.dataset())
-        next_index = list(self.indexed_dataset().keys())[index + page_size]
-        data = self.dataset()[index: next_index]
+        idx_data = self.indexed_dataset()
+        if index in idx_data:
+            next_index = index + page_size
+        else:
+            next_index = list(idx_data.keys())[index] + page_size
+        data = self.dataset()[index: index + page_size]
         new_dict = {
             'index': index,
             'next_index': next_index,
