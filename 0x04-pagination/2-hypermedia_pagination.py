@@ -79,11 +79,11 @@ class Server:
         """
         page_num = self.get_page(page, page_size)
         total_page = math.ceil(len(self.dataset()) / page_size)
-        if page == 1:
+        if page <= 1:
             prev_page = None
         else:
             prev_page = page - 1
-        if page == total_page:
+        if page >= total_page:
             next_page = None
         else:
             next_page = page + 1
