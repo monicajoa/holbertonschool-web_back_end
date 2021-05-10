@@ -14,11 +14,11 @@ def filter_datum(fields: List[str], redaction: str,
 
     Args:
         fields (List[str]): [Strings representing all fields]
-        redaction (str): [String representing by what the
-        field will be obfuscated]
+        redaction (str):
+        [String representing by what the field will be obfuscated]
         message (str): [String representing the log line]
-        separator (str): [String representing by which character
-        is separating all fields]
+        separator (str):
+        [String representing by which character is separating all fields]
 
     Returns:
         str: [The log message obfuscated]
@@ -38,10 +38,26 @@ class RedactingFormatter(logging.Formatter):
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]):
+        """[Constructor method sets the initial
+        atributes of the instance]
+
+        Args:
+            fields (List[str])
+        """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        """[Method to filter values in incoming log records]
+
+        Args:
+            record (logging.LogRecord):
+            [keep information in memory until it is processed]
+
+        Returns:
+            str:
+            [filtered values ​​on incoming records using filter_datum]
+        """
         return filter_datum(
             self.fields, self.REDACTION, super(
                 RedactingFormatter, self).format(record),
