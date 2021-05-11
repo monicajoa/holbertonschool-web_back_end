@@ -100,3 +100,24 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
             password, ""), host=os.getenv(
                 host, "localhost"), database=os.getenv(db_name))
     return my_db
+
+
+def main():
+    """[Method that takes no arguments and returns nothing,
+        Read and filter data]
+    """
+    my_db = get_db()
+    logger = get_logger()
+    cur = my_db.cursor(dictionary=True)
+    cur.execute("SELECT * FROM users;")
+    for row in cur:
+        message = ''
+        for index in row:
+            message += + format'{index}={row[index]}; '
+        print(message)
+    cur.close()
+    my_db.close()
+
+
+if __name__ == "__main__":
+    main()
