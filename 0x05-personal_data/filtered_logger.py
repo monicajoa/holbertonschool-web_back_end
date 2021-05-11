@@ -65,17 +65,18 @@ class RedactingFormatter(logging.Formatter):
                 RedactingFormatter, self).format(record),
             self.SEPARATOR)
 
-    def get_logger() -> logging.Logger:
-        """[Method that takes no arguments]
 
-        Returns:
-            logging.Logger: [Logging.Logger object]
-        """
-        logger = logging.getLogger('user_data')
-        logger.setLevel(logging.INFO)
-        logger.propagate = False
-        handler = logging.StreamHandler()
-        formatter = RedactingFormatter(PII_FIELDS)
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
-        return logger
+def get_logger() -> logging.Logger:
+    """[Method that takes no arguments]
+
+    Returns:
+        logging.Logger: [Logging.Logger object]
+    """
+    logger = logging.getLogger('user_data')
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    handler = logging.StreamHandler()
+    formatter = RedactingFormatter(PII_FIELDS)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    return logger
