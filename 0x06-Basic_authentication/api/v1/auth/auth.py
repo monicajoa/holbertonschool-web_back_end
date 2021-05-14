@@ -34,15 +34,20 @@ class Auth:
             return True
 
     def authorization_header(self, request=None) -> str:
-        """[Public method]
+        """[Public method, Request validation and
+        return the value of the header
+        request Authorization]
 
         Args:
-            request ([type], optional): Defaults to None
+            request ([type]: Defaults to None
 
         Returns:
             str: [None]
         """
-        return None
+        if request is None:
+            return None
+        else:
+            return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """[Public method]
