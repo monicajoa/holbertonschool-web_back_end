@@ -43,6 +43,8 @@ def Forbidden(error) -> str:
 
 @app.before_request
 def before_request():
+    """ Before_request handler, Filtering of each request
+    """
     new_list = ['/api/v1/status/',
                 '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if auth is None:
