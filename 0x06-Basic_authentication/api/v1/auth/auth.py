@@ -31,7 +31,12 @@ class Auth:
         if path in excluded_paths:
             return False
         else:
-            return True
+            for index in excluded_paths:
+                new_paths = index.find('*')
+                if index.endswith('*') and index[:val] == path[:index]:
+                    return False
+                else:
+                    return True
 
     def authorization_header(self, request=None) -> str:
         """[Public method, Request validation and
