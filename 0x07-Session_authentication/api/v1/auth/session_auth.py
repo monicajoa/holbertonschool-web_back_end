@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-""" Module of Session auth views
+""" Module that Create a session
 """
 
 from api.v1.auth.auth import Auth
+from uuid import uuid4
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -11,4 +13,16 @@ class SessionAuth(Auth):
     Args:
         Auth ([Class]): [Parent class]
     """
-    pass
+    user_id_by_session_id = {}
+
+    def create_session(self, user_id: str = None) -> str:
+        """ Method  that creates a Session
+            ID for a user_id
+        """
+        if user_id is None:
+            return None
+        if not isinstance(user_id, str):
+            return None
+        new_session_id = str(uuid4())
+        self.user_id_by_session_id[new_session_id] = user_id
+        return new_session_id
