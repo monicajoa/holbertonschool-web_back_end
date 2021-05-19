@@ -6,6 +6,7 @@ from api.v1.auth.auth import Auth
 import base64
 from typing import TypeVar
 from models.user import User
+from api.v1.auth.auth import Auth
 
 
 class BasicAuth(Auth):
@@ -89,3 +90,10 @@ class BasicAuth(Auth):
         overloads Auth and retrieves the User instance
         for a request
         """
+        auth = self.authorization_header(request)
+        extract_base64 = self.extract_base64_authorization_header(auth)
+        decode_base64 = self.decode_base64_authorization_header(extract_base64)
+        extract_user = self.extract_user_credentials(decode_base64)
+        user_object = self.user_object_from_credentials(
+            extract_user[0], extract_user[1])
+        return user_object
