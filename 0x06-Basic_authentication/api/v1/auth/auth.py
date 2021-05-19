@@ -33,7 +33,7 @@ class Auth:
         else:
             for index in excluded_paths:
                 new_paths = index.find('*')
-                if index.endswith('*') and index[:val] == path[:index]:
+                if index.endswith('*') and index[:new_paths] == path[:index]:
                     return False
                 else:
                     return True
