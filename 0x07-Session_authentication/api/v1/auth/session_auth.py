@@ -16,7 +16,7 @@ class SessionAuth(Auth):
     user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
-        """ Method  that creates a Session
+        """ Method that creates a Session
             ID for a user_id
         """
         if user_id is None:
@@ -26,3 +26,14 @@ class SessionAuth(Auth):
         new_session_id = str(uuid4())
         self.user_id_by_session_id[new_session_id] = user_id
         return new_session_id
+
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        """ Method User ID for Session ID,
+            Returns a User ID based on a Session ID
+        """
+        if session_id is None:
+            return None
+        if not isinstance(session_id, str):
+            return None
+        new_user_id = self.user_id_by_session_id.get(session_id)
+        return new_user_id
