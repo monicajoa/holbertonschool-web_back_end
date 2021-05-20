@@ -37,3 +37,11 @@ class SessionAuth(Auth):
             return None
         new_user_id = self.user_id_by_session_id.get(session_id)
         return new_user_id
+
+    def current_user(self, request=None):
+        """ Method Use Session ID for identifying a User,
+            Returns a User instance based on a cookie value
+        """
+        session = self.session_cookie(request)
+        user = self.user_id_for_session_id(session)
+        return User.get(user)
