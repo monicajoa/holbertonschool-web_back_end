@@ -62,7 +62,6 @@ class DB:
         """ Method Update user, takes as argument a required user_id integer
             and arbitrary keyword arguments, Returns None
         """
-        session = self._session
         updated_user = self.find_user_by(id=user_id)
         user_table = User.__table__.columns.keys()
         for key, value in kwargs.items():
@@ -70,5 +69,4 @@ class DB:
                 setattr(updated_user, key, value)
             else:
                 raise ValueError
-        session.commit()
-        return None
+        self._session.commit()
