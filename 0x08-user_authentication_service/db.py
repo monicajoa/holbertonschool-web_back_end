@@ -69,6 +69,6 @@ class DB:
                     isinstance(value, type(user.__dict__[key])):
                 setattr(user, key, value)
             else:
-                raise ValueError()
+                raise ValueError
         session.commit()
         return None
