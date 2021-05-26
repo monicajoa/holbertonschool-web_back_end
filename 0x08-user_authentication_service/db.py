@@ -70,4 +70,3 @@ class DB:
             else:
                 raise ValueError
         session.commit()
-        return None
