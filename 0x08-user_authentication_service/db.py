@@ -62,11 +62,12 @@ class DB:
         """ Method Update user, takes as argument a required user_id integer
             and arbitrary keyword arguments, Returns None
         """
+        session = self._session
         updated_user = self.find_user_by(id=user_id)
-        user_table = User.__table__.columns.keys()
+        user_table = User.__table__.columns
         for key, value in kwargs.items():
             if key in user_table:
                 setattr(updated_user, key, value)
             else:
                 raise ValueError
-        self._session.commit()
+        session.commit()
