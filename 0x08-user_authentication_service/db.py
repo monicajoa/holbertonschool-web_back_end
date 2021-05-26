@@ -63,10 +63,12 @@ class DB:
             and arbitrary keyword arguments, Returns None
         """
         session = self._session
-        user = self.find_user_by(id=user_id)
+        updated_user = self.find_user_by(id=user_id)
+        user_table = User.__table__.columns.keys()
         for key, value in kwargs.items():
-            if key in user.__dict__:
-                setattr(user, key, value)
+            if key in user_table:
+                setattr(updated_user, key, value)
             else:
                 raise ValueError
         session.commit()
+        return None
