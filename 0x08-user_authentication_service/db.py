@@ -70,3 +70,4 @@ class DB:
         except TypeError:
             raise ValueError()
         session.commit()
+        return None
