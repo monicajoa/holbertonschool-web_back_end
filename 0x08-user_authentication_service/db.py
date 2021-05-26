@@ -5,6 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
 
@@ -33,7 +35,7 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """ Method, which has two required string arguments,
+        """ Method create user, which has two required string arguments,
             Returns a User object and save the user to the database
         """
         session = self._session
@@ -41,3 +43,17 @@ class DB:
         session.add(new_user)
         session.commit()
         return new_user
+
+    def find_user_by(self, **kwargs) -> User:
+        """ Method Find user, takes in arbitrary keyword arguments,
+            Returns the first row found in the users table as
+            filtered by the method’s input arguments
+        """
+        session = self._session
+        try:
+            find_user = session.query(User).filter_by(**kwargs).first()
+        except TypeError:
+            raise InvalidRequestError()
+        if not find_user:
+            raise NoResultFound()
+        return find_user
