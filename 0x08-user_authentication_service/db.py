@@ -66,7 +66,7 @@ class DB:
         user = self.find_user_by(id=user_id)
         try:
             for key, value in kwargs.items():
-                if key in user.__dict__:
+                if key in user.__dict__ and isinstance(value, type(user.__dict__[key])):
                     setattr(user, key, value)
                 else:
                     raise ValueError()
