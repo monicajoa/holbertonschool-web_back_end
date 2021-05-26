@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """ DB module
 """
 from sqlalchemy import create_engine
@@ -35,7 +36,8 @@ class DB:
         """ Method, which has two required string arguments,
             Returns a User object and save the user to the database
         """
+        session = self._session
         new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
-        self._session.commit()
+        session.add(new_user)
+        session.commit()
         return new_user
