@@ -66,7 +66,10 @@ class DB:
         user = self.find_user_by(id=user_id)
         try:
             for key, value in kwargs.items():
-                setattr(user, key, value)
+                if key in user.__dict__:
+                    setattr(user, key, value)
+                else:
+                    raise ValueError()
         except TypeError:
             raise ValueError()
         session.commit()
