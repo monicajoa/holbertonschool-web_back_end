@@ -16,7 +16,7 @@ class DB:
         """ Method constructor,
             Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -35,8 +35,7 @@ class DB:
         """ Method, which has two required string arguments,
             Returns a User object and save the user to the database
         """
-        session = self._session()
         new_user = User(email=email, hashed_password=hashed_password)
-        session.add(new_user)
-        session.commit()
+        self._session.add(new_user)
+        self._session.commit()
         return new_user
