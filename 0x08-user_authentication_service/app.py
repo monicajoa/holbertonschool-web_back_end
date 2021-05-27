@@ -2,7 +2,7 @@
 """ [Module that holds Basic Flask app]
 """
 
-from flask import Flask, jsonify, request, abort, redirect
+from flask import Flask, jsonify
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
