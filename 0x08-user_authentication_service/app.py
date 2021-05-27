@@ -6,7 +6,7 @@ from flask import Flask, jsonify, request, abort, redirect
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
-def basic_flask_app(): -> str:
+def basic_flask_app() -> str:
     """ Method Basic Flask app, that create and set up
         a basic Flask app, Return a JSON payload.
     """
