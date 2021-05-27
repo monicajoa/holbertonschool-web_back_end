@@ -10,7 +10,7 @@ from uuid import uuid4
 
 
 def _hash_password(password: str) -> str:
-    """ Method Hash password, that takes in a password
+    """ Method Hash password, it takes in a password
         string argumentsand, Returns bytes
     """
     sal = bcrypt.gensalt()
@@ -34,7 +34,7 @@ class Auth:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-        """ Method Register user, that takes email and password arguments,
+        """ Method Register user, it takes email and password arguments,
             Return a User object
         """
         try:
@@ -46,8 +46,8 @@ class Auth:
             return register_user
 
     def valid_login(self, email: str, password: str) -> bool:
-        """ Method Credentials validation, Try to reach the user by email,
-            It should expect required arguments by email and password and
+        """ Method Credentials validation, try to reach the user by email,
+            it should expect required arguments by email and password and
             Return a boolean
         """
         try:
@@ -72,7 +72,7 @@ class Auth:
         return find_user.session_id
 
     def get_user_from_session_id(self, session_id: str) -> None:
-        """ Method Find user by session ID, It takes a session_id as argument,
+        """ Method Find user by session ID, it takes a session_id as argument,
             Returns the corresponding User or None
         """
         if session_id is None:
@@ -81,4 +81,16 @@ class Auth:
             find_user = self._db.find_user_by(session_id=session_id)
             return find_user
         except NoResultFound:
+            return None
+
+    def destroy_session(self, user_id: int) -> None:
+        """ Method Destroy session, it takes user_id integer argument,
+            updates the corresponding user’s session ID to None,
+            Returns None
+        """
+        if user_id is None:
+            return None
+        try:
+            self._db.update_user(user_id, session_id=None)
+        except Exception:
             return None
