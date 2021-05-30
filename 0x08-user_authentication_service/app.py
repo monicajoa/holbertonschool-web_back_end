@@ -100,9 +100,9 @@ def update_password() -> str:
     new_password = request.form.get("new_password")
     try:
         AUTH.update_password(new_token, new_password)
-        return jsonify({"email": new_email, "message":
-                        "Password updated"}), 200
-    except Exception:
+        return jsonify({"email": new_email,
+                        "message": "Password updated"}), 200
+    except ValueError:
         abort(403)
 
 
