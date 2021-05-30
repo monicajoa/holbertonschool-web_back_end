@@ -81,11 +81,28 @@ def get_reset_password_token() -> str:
         POST /reset_password route, request with form data with
         email field
     """
-    email = request.form.get('email')
+    email_data = request.form.get('email')
     try:
-        new_token = AUTH.get_reset_password_token(email)
-        return jsonify({"email": email, "reset_token": new_token}), 200
+        new_token = AUTH.get_reset_password_token(email_data)
+        return jsonify({"email": email_data, "reset_token": new_token}), 200
     except ValueError:
+        abort(403)
+
+
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
+def update_password() -> str:
+    """ Method Update password end-point, respond to the PUT /
+        reset_password path, request with the data of email,
+        reset_token and new_password, Update the password
+    """
+    new_email = request.form.get("new_email")
+    new_token = request.form.get("new_token")
+    new_password = request.form.get("new_password")
+    try:
+        AUTH.update_password(new_token, new_password)
+        return jsonify({"email": new_email, "message":
+                        "Password updated"}), 200
+    except Exception:
         abort(403)
 
 
