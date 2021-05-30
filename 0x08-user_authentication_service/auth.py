@@ -101,7 +101,7 @@ class Auth:
         """
         try:
             user_find = self._db.find_user_by(email=email)
-            self._db.update_user(user_find.id, reset_token=_generate_uuid())
-            return user_find.reset_token
-        Except NoResultFound:
+        except NoResultFound:
             raise ValueError
+        self._db.update_user(user_find.id, reset_token=_generate_uuid())
+        return user_find.reset_token
