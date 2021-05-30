@@ -95,8 +95,8 @@ def update_password() -> str:
         reset_password path, request with the data of email,
         reset_token and new_password, Update the password
     """
-    new_email = request.form.get("new_email")
-    new_token = request.form.get("new_token")
+    new_email = request.form.get("email")
+    new_token = request.form.get("reset_token")
     new_password = request.form.get("new_password")
     try:
         AUTH.update_password(new_token, new_password)
