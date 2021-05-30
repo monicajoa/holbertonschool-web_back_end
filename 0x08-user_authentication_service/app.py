@@ -63,7 +63,7 @@ def logout() -> str:
 
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
-def profile():
+def profile() -> str:
     """ Method User profile, responds to the GET /profile route,
         the request contains a cookie session_id, to find the user
     """
@@ -76,16 +76,16 @@ def profile():
 
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
-def reset_password():
+def get_reset_password_token() -> str:
     """ Method Get reset password token, responds to the
         POST /reset_password route, request with form data with
-        "email" field
+        email field
     """
     email = request.form.get('email')
     try:
-        new_token: AUTH.get_reset_password_token(email)
+        new_token = AUTH.get_reset_password_token(email)
         return jsonify({"email": email, "reset_token": new_token}), 200
-    except Exception:
+    except ValueError:
         abort(403)
 
 
