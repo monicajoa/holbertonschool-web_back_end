@@ -39,3 +39,22 @@ class TestGithubOrgClient(unittest.TestCase):
             TestClass = GithubOrgClient('org')
             response = TestClass._public_repos_url
             self.assertEqual(response, mock.return_value["repos_url"])
+
+    @patch('client.get_json')
+    def test_public_repos(self, mock):
+        """ Method to unit test GithubOrgClient.public_repos,
+            Use @patch as a decorator and return a payload
+            of your choice
+            (Patching)
+        """
+        payload = [{"name": "Google"}, {"name": "Twitter"}]
+        mock.return_value = payload
+        with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyMock) as mock_instance:
+            mock_instance.return_value = "hello"
+            TestClass = GithubOrgClient('org')
+            response = TestClass.public_repos()
+            result = [i["name"] for i in payload]
+            self.assertEqual(response, result)
+            mock_instance.assert_called_once()
+            mock.assert_called_once()
