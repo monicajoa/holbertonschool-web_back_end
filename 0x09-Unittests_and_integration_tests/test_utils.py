@@ -65,7 +65,7 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """ Class that holds the tests that verify the
-        operation of the get json function,
+        operation of the memoize function,
         Class that inherits from unittest.TestCase
         (Parameterize and patch)
     """
