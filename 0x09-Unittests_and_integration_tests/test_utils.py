@@ -4,12 +4,15 @@
 
 from parameterized import parameterized
 import unittest
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 from unittest.mock import patch, Mock
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """ [Class that inherits from unittest.TestCase]
+    """ Class that holds the tests that verify the
+        operation of the nested map function,
+        Class that inherits from unittest.TestCase
+        (Parameterize a unit test)
     """
 
     @parameterized.expand([
@@ -38,7 +41,10 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 class TestGetJson(unittest.TestCase):
-    """ [Class Mock HTTP calls]
+    """ Class that holds the tests that verify the
+        operation of the get json function,
+        Class that inherits from unittest.TestCase
+        (Mock HTTP calls)
     """
 
     @parameterized.expand([
@@ -55,3 +61,30 @@ class TestGetJson(unittest.TestCase):
         mock.return_value = expected
         response = get_json(test_url)
         self.assertEqual(response, expected)
+
+
+class TestMemoize(unittest.TestCase):
+    """ Class that holds the tests that verify the
+        operation of the get json function,
+        Class that inherits from unittest.TestCase
+        (Parameterize and patch)
+    """
+
+    def test_memoize(self):
+        """ (Memoize unittest)
+        """
+        class TestClass:
+            """ Test class
+            """
+
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        with patch.object(TestClass, 'a_method') as mock:
+            TestClass.a_property
+            TestClass.a_property
+            mock.asser_called_once()
