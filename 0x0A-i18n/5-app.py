@@ -2,7 +2,7 @@
 """ [Module that holds Mock logging in]
 """
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel
 from os import getenv
 
@@ -56,9 +56,18 @@ def get_user():
     """
     login_as = request.args.get("login_as")
     if login_as:
-        user = users[int(login_as)]
-        return user
-    return None
+        new_user = users[int(login_as)]
+        return new_user
+    else:
+        return None
+
+
+@app.before_request
+def before_request():
+    """ Method that finds a user, if any,
+        and sets it as global in flask.g.user
+    """
+    g.user = get_user()
 
 
 if __name__ == "__main__":
