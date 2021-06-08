@@ -4,7 +4,7 @@
 
 import redis
 from uuid import uuid4
-from typing import Union, Optional
+from typing import Union, Optional, Callable
 
 
 class Cache:
