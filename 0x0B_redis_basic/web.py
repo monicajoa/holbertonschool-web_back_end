@@ -23,8 +23,9 @@ def url_request(method: Callable) -> Callable:
         new_url = self._redis.get(args[0])
         if new_url:
             return new_url
-        new_url = method(*args, **kwds)
-        self._redis.setex(args[0], 10, new_url)
+        else:
+            new_url = method(*args, **kwds)
+            self._redis.setex(args[0], 10, new_url)
     return wrapper
 
 
@@ -35,5 +36,5 @@ def get_page(url: str) -> str:
         how many times that URL was accessed,
         caches the result, and returns it
     """
-    access_url = requests.get(url)
+    access_url = requests.get(new_url)
     return access_url.text
