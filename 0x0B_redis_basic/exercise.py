@@ -6,6 +6,7 @@ import redis
 from uuid import uuid4
 from typing import Union, Optional, Callable
 from functools import wraps
+import sys
 
 
 def count_calls(method: Callable) -> Callable:
@@ -49,12 +50,12 @@ def replay(method: Callable):
         Method that holds a function to display the history
         of calls of a particular function
     """
-    redis = redis.Redis()
+    self._redis = redis.Redis()
     key = method.__qualname__
-    new_value = redis.get(key)
+    new_value = self._redis.get(key)
     decode_value = new_value.decode("utf-8")
-    new_inputs = redis.lrange(key + ':inputs', 0, -1)
-    new_outputs = redis.lrange(key + ':outputs', 0, -1)
+    new_inputs = self._redis.lrange(key + ':inputs', 0, -1)
+    new_outputs = self._redis.lrange(key + ':outputs', 0, -1)
     print('{} was called {} times:'.format(key, decode_value))
     for i, j in zip(new_inputs, new_outputs):
         print('{}(*{}) -> {}'.format(key, i.decode('utf-8'),
