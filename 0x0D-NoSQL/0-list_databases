@@ -1,2 +1,2 @@
 // Module that holds list all databases (Task 0)
-show bds
+show dbs
