@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """ Module that holds insert a document
 """
 
