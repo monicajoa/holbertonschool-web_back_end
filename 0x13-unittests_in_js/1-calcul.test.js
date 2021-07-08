@@ -1,5 +1,6 @@
 const assert = require('assert');
 const calculateNumber = require('./1-calcul.js');
+
 describe('Test calculateNumber', function() {
 	it('Check operations with SUM', function() {
         assert.equal(calculateNumber('SUM', 1.4, 4.5), 6);
